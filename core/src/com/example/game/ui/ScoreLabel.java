@@ -10,6 +10,9 @@ public class ScoreLabel extends Actor{
 	public int currentScore;
 	private BitmapFont font;
 	
+	/**
+	 * Score label constructor
+	 */
 	public ScoreLabel() {
 		currentScore = 0;
 		font = new BitmapFont();

@@ -21,7 +21,13 @@ public class Player extends Actor {
 	
 	Array<TextureRegion> playerTextures;
 	Animation playerAnimation;
-
+	
+	/**
+	 * Player constructor
+	 * 
+	 * @param x - x position
+	 * @param y - y position
+	 */
 	public Player(float x, float y) {
 		setX(x);
 		setY(y);
@@ -68,6 +74,8 @@ public class Player extends Actor {
 	public void act(float delta) {
 		
 		super.act(delta);
+		
+		// increase state time used for animations
 		stateTime += delta;
 		
 		// simple in-bounds player management
@@ -76,6 +84,7 @@ public class Player extends Actor {
 			moveBy(0, velocity.y);
 		}
 
+		// update player's bounds
 		bounds.x = getX();
 		bounds.y = getY();
 	}
@@ -85,6 +94,9 @@ public class Player extends Actor {
 		batch.draw(playerAnimation.getKeyFrame(stateTime, true), getX(), getY());	
 	}
 	
+	/**
+	 * Dispose player textures
+	 */
 	public void disposeTextures() {
 		for (TextureRegion tr : playerTextures) {
 			tr.getTexture().dispose();

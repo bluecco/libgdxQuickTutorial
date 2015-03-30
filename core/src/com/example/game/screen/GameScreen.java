@@ -48,7 +48,7 @@ public class GameScreen implements Screen {
 		// createEnemy
 		createEnemy(delta);
 		
-		// if player has lives left, continue
+		// if player has lives left, continue to play
 		if (player.lives > 0) {
 
 			gameStage.act(delta);
@@ -77,29 +77,42 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		gameStage.clear();
-
+		
+		// initialize the player and add it to the gameStage
 		player = new Player(10, 150.0f / 2);
 		gameStage.addActor(player);
-
+		
+		// initialize the score label and add it to the gameStage
 		scoreLabel = new ScoreLabel();
 		scoreLabel.setName("score");
 		gameStage.addActor(scoreLabel);
 		
-		// ad inputHander (keyboard) and gestureDetector (touch)
+		// add inputHander (keyboard) and gestureDetector (touch)
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(new InputHandler(player, gameStage));
 		inputMultiplexer.addProcessor(new GestureDetector(new GestureHandler(
 				player, gameStage)));
+		
+		// set the inputProcessor supported
 		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
-
+	
+	/**
+	 * Create an enemy
+	 * 
+	 * @param delta time
+	 */
 	public void createEnemy(float delta) {
+		// increase spawn time by delta
 		spawnTime += delta;
-
+		
+		// if 3 seconds has passed, create an enemy
 		if ((int) spawnTime % 3 == 0) {
-
+			
+			// reset spawnTime to 1 second
 			spawnTime = 1;
-
+			
+			//TODO: delete hard coded (x,y) position
 			int yPos = 0;
 			switch (new Random().nextInt(3)) {
 			case 0:
@@ -112,7 +125,8 @@ public class GameScreen implements Screen {
 				yPos = (150 / 2) + 40;
 				break;
 			}
-
+			
+			// add the enemy to the gameStage
 			gameStage.addActor(enemyFactory.createEnemy(
 					new Random().nextInt(3), 250.0f, yPos, player));
 		}
@@ -134,12 +148,16 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		
+		// manual texture's dispose
+		
 		player.disposeTextures();
 		for (Actor actor : gameStage.getActors()) {
 			if (actor instanceof Enemy) {
 				((Enemy) actor).disposeTextures();
 			}
 		}
+		
 		gameStage.dispose();
 	}
 }

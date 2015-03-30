@@ -49,6 +49,7 @@ public class SplashScreen implements Screen {
 		logo.setWidth(width);
 		logo.setHeight(height);
 		
+		// set a sequence of action to the logo image
 		logo.addAction(sequence(delay(0.1f), fadeOut(0.5f), new Action() {
 			
 			@Override

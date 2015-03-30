@@ -45,14 +45,18 @@ public class GestureHandler implements GestureListener {
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
 		
 		// basic player movements
+		
+		// move down the player
 		if (deltaY > 1) {
 			player.velocity.y = -1;
 		}
-
+		
+		// move up the player
 		if (deltaY < -1) {
 			player.velocity.y = 1;
 		}
-
+		
+		// stop the player
 		if (deltaY > -1f && deltaY < 1f) {
 			player.velocity.y = 0;
 		}

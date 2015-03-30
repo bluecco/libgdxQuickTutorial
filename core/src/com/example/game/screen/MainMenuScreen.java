@@ -25,26 +25,31 @@ public class MainMenuScreen implements Screen {
 		
 		this.game = game;
 		stage = new Stage();
-
+		
+		// initialize buttons' skin
 		Skin skin = new Skin();
 		skin.add("menu_button", new Texture("menu_button.png"));
 
 		// Store the default libgdx font under the name "default".
 		skin.add("default", new BitmapFont());
 		
+		// setting buttons' style
 		TextButtonStyle textButtonStyle = new TextButtonStyle();
 		textButtonStyle.up = skin.newDrawable("menu_button");
 		textButtonStyle.font = skin.getFont("default");
 
 		skin.add("default", textButtonStyle);
-
+		
 		Gdx.input.setInputProcessor(stage);
-
+		
+		// initialize play and about button
 		playButton = new TextButton("PLAY!", skin);
 		aboutButton = new TextButton("About", skin);
 		
+		// add click listener to the playButton (work on both mouse click and device tap)
 		playButton.addListener(new ClickListener() {
 	        public void clicked(InputEvent event, float x, float y) {
+	        	// if clicked, dispose this screen e set the gameScreen
 	        	dispose();
 	        	game.setScreen(new GameScreen(game, true));
 	        }
@@ -53,10 +58,11 @@ public class MainMenuScreen implements Screen {
 		aboutButton.addListener(new ClickListener() {
 	        public void clicked(InputEvent event, float x, float y) {
 				dispose();
-				//game.setScreen(new GameScreen(game, false));
+				//game.setScreen(new AboutScreen(game, false));
 	        }
 	    });
 		
+		// define a table to put menu buttons
 		Table table = new Table();
 		table.add(playButton);
 		table.row();

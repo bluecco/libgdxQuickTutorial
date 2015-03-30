@@ -14,14 +14,24 @@ public class Bullet extends Actor {
 	private Rectangle bounds;
 	private ScoreLabel scoreLabel;
 	
+	/**
+	 * 
+	 * Bullet constructor
+	 * 
+	 * @param player - used to get the player position
+	 * @param scoreLabel - used to update the score
+	 */
 	public Bullet(Player player, ScoreLabel scoreLabel) {
 		super();
 		this.scoreLabel = scoreLabel;
 		
 		setUserObject(this.getClass());
+		
+		// setting bullet position
 		setPosition(player.getX() + player.getWidth(),
 				player.getY() + player.getHeight() / 2);
 		
+		// setting bullet bounds
 		bounds = new Rectangle(getX(), getY(), bulletSprite.getWidth(), bulletSprite.getWidth());
 	}
 
@@ -39,7 +49,7 @@ public class Bullet extends Actor {
 				
 				Enemy enemy = (Enemy) otherActor;
 				
-				// if it collides, remove it and update game info (score) and enemy to isAlive = false
+				// if collides, remove it and update game info (score) and enemy to isAlive = false
 				if(this.bounds.overlaps(enemy.bounds)){
 					
 					remove();
@@ -52,6 +62,7 @@ public class Bullet extends Actor {
 			}
 		}
 		
+		// if the bullet go outside of the screen, remove it
 		if ((getX() < 0 || getX() > Gdx.graphics.getWidth())) {
 			remove();
 		}

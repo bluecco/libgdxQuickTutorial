@@ -26,6 +26,15 @@ public class Enemy extends Actor {
 	private Array<TextureRegion> explosionTexture;
 	private Player player;
 	
+	/**
+	 * Enemy constructor
+	 * 
+	 * @param x - x position
+	 * @param y - y position
+	 * @param player - used to test collision
+	 * @param ap - enemy attack power
+	 * @param hp - enemy health points
+	 */
 	public Enemy(float x, float y, Player player, int ap, int hp) {
 		
 		// adding textures for animation
@@ -44,14 +53,18 @@ public class Enemy extends Actor {
 		this.ap = ap;
 		this.hp = hp;
 		
+		// setting position
 		setX(x);
 		setY(y);
 		setOrigin(getWidth(), getHeight());
+		
+		// setting dimension
 		setWidth(20);
 		setHeight(15);
 		setUserObject(this.getClass());
 		setOrigin(getWidth(), getHeight());
 		
+		// initialize velocity
 		velocity = new Vector2(0.0f, 0.0f);
 		
 		// bounds for simple collision
@@ -63,18 +76,15 @@ public class Enemy extends Actor {
 	public void act(float delta) {
 	    super.act(delta);
 	    
-	    if (!isAlive) {
+	    // if enemy is alive, move it
+	    if (isAlive) {
+	    	moveBy(-1, velocity.y);
+	    } else {
+	    	// else increase state time for explode animation
 	    	stateTime += delta;
 	    }
 	    
-	    if ((getY() < Gdx.graphics.getHeight() - getHeight()) && isAlive) {
-	    	moveBy(-0.1f, velocity.y);
-	    }
-	    
-	    if (getY() > 0 && isAlive) {
-	    	moveBy(-1, velocity.y);
-	    }
-	    
+	    // update enemy's bounds
 	    bounds.x = getX();
 	    bounds.y = getY();
 	    
@@ -105,6 +115,9 @@ public class Enemy extends Actor {
 		}
 	}
 	
+	/**
+	 * Dispose enemy textures
+	 */
 	public void disposeTextures() {
 		enemyTexture.dispose();
 		for (TextureRegion tr : explosionTexture) {

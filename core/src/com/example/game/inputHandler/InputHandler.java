@@ -23,9 +23,11 @@ public class InputHandler implements InputProcessor {
 		
 		// basic player movements
 		case Keys.W:
+			// move up the player
 			player.velocity.y += 1;
 			break;
 		case Keys.S:
+			// move down the player
 			player.velocity.y -= 1;
 			break;
 		case Keys.SPACE:
@@ -44,9 +46,11 @@ public class InputHandler implements InputProcessor {
 		switch (keycode) {
 
 		case Keys.W:
+			// stop the player movement 
 			player.velocity.y = 0;
 			break;
 		case Keys.S:
+			// stop the player movement
 			player.velocity.y = 0;
 			break;
 		case Keys.SPACE:
